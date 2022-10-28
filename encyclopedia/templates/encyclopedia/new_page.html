@@ -1,0 +1,18 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Add Page
+{% endblock %}
+
+{% block body %}
+    <h1>Add a new entry</h1>
+    <form action = "{% url 'new' %}" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <br>
+        <input type="submit">
+        {% if entryExists %}
+        <p style="color: red">Entry already exists. Try searching for your entry.</p>
+        {% endif %}
+    </form>
+{% endblock %}
