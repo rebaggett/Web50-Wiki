@@ -49,17 +49,11 @@ def search(request):
             "results": searchResults, "title": "Results"
         })
 
-def new(request, title="", content="", edit=False):
-    #Initializes form and sets default values for either edit or new
+def new(request):
+    #Initializes form
     form = NewEntryForm()
-    form.title(default = title)
-    form.content(default = content)
     
-    #Allows for new function if this is an edit
-    if title != "":
-        edit=True
-
-    #Execute the following if you're adding a new entry or editing an existing entry
+    #Execute the following after "submit"
     if request.method == "POST":
         form = form(request.POST)
         entryExists = False
@@ -71,12 +65,8 @@ def new(request, title="", content="", edit=False):
             title = form.cleaned_data["title"]
             content = form.cleaned_data["content"]
 
-            #For edits:
-            if edit == True:
-                util.save_entry(title, content)
-                return goToEntry
 
-            #For new entries: Look for title in existing entries, if entry already exists, error will populate below submit button
+            #Look for title in existing entries, if entry already exists, error will populate below submit button
             entries = util.list_entries()
             lower_entries = [entry.casefold() for entry in entries]
             
