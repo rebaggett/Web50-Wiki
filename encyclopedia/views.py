@@ -11,14 +11,13 @@ class NewEntryForm(forms.Form):
     title = forms.CharField(label="Title", max_length=25, min_length=1)
     content = forms.CharField(label="Page Content", widget=Textarea)
 
-
 def index(request):
     return render(request, "encyclopedia/index.html", {
         "entries": util.list_entries()
     })
 
+
 def entry(request, title):
-    edit = False
     title = title.capitalize()
     entry = util.get_entry(title)
 
@@ -32,12 +31,6 @@ def entry(request, title):
     return render(request, "encyclopedia/entry.html", {
         "title": title, "content": content
     })
-
-    def eventHandler():
-        if edit == False:
-            edit = True
-        else:
-            edit = False
 
 
 def search(request):

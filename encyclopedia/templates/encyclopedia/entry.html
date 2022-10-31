@@ -6,14 +6,16 @@
 
 {% block body %}
     {% if edit %}
-        <form>
+        <form action="{% url 'entry' title %}" method="post">
+            {% csrf_token %}
             <label for="edit_content">Page Content</label>
-            <textarea id="edit_content" name="edit_input">{{content}}</textarea>
+            <textarea id="edit_content" name="edit_content">{{content}}</textarea>
+            <input type="submit" value="Submit">
         </form>
 
-    {% else %}
+        {% else %}
         {{ content | safe }}
-        <button action="eventHandler">Edit this page</button>
-        <a href="{% url 'edit' %}">Edit this page</a>
+        <input type="submit" action="{% url 'entry' title {{edit}}%}" method="post" value="Edit this page">
+        <!--<a href=" url 'edit' ">Edit this page</a>-->
      {% endif %}
 {% endblock %}
