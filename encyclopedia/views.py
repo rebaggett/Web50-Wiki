@@ -18,6 +18,7 @@ def index(request):
     })
 
 def entry(request, title):
+    edit = False
     title = title.capitalize()
     entry = util.get_entry(title)
 
@@ -31,6 +32,13 @@ def entry(request, title):
     return render(request, "encyclopedia/entry.html", {
         "title": title, "content": content
     })
+
+    def eventHandler():
+        if edit == False:
+            edit = True
+        else:
+            edit = False
+
 
 def search(request):
     entries = []

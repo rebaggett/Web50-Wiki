@@ -1,10 +1,19 @@
 {% extends "encyclopedia/layout.html" %}
 
 {% block title %}
-{{ title }}
+    {{ title }}
 {% endblock %}
 
 {% block body %}
-{{ content | safe }}
-<a href="{% url 'edit' %}">Edit this page</a>
+    {% if edit %}
+        <form>
+            <label for="edit_content">Page Content</label>
+            <textarea id="edit_content" name="edit_input">{{content}}</textarea>
+        </form>
+
+    {% else %}
+        {{ content | safe }}
+        <button action="eventHandler">Edit this page</button>
+        <a href="{% url 'edit' %}">Edit this page</a>
+     {% endif %}
 {% endblock %}
